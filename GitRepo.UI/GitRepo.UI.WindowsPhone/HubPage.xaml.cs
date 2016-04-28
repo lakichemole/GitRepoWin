@@ -80,6 +80,7 @@ namespace GitRepo.UI
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
+            var user = await Asto.GitApi.Service.DataServiceManager.Instance.GetUserByLogin("technoweenie");
             this.DefaultViewModel["Groups"] = sampleDataGroups;
         }
 
