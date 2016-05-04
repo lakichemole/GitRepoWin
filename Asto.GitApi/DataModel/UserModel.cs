@@ -8,5 +8,12 @@ namespace Asto.GitApi.DataModel
 {
     public partial class UserModel
     {
+        private string _ImageUrl;
+
+        public string ImageUrl
+        {
+            get { return _ImageUrl; }
+        }
+
     }
 }
