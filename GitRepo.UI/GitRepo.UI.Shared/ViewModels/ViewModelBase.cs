@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Resources;
 
 namespace GitRepo.UI.ViewModels
 {
@@ -18,6 +19,8 @@ namespace GitRepo.UI.ViewModels
         #region Properties
 
         public INavigationService NavigationService { get; set; }
+
+        public ResourceLoader ResourceLoader { get; set; }
 
         private bool _IsLoading;
 
@@ -48,6 +51,9 @@ namespace GitRepo.UI.ViewModels
             }
         }
 
+        public virtual void Unload() {
+            this.IsDataLoaded = false;
+        }
 
         #endregion
 

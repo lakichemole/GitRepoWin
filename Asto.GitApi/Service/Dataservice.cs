@@ -14,7 +14,7 @@ namespace Asto.GitApi.Service
     public sealed class DataServiceManager
     {
         #region Private variables
-
+        private const string Host = "https://api.github.com";
         private struct JsonResponse
         {
             public string Data;
@@ -81,13 +81,26 @@ namespace Asto.GitApi.Service
 
         public async Task<UserModel> GetUserByLogin(string Login)
         {
-            var result = await GetJson(string.Format("https://api.github.com/users/{0}", Login));
+            var result = await GetJson(string.Format("{0}/users/{1}", Host, Login));
             if (result.HaveError)
             {
                 return null;
             }
             else {
                 return JsonConvert.DeserializeObject<UserModel>(result.Data);
+            }
+        }
+
+        public async Task<List<RepositoryModel>> GetRepositoriesFromUser(string Login,int page, int pageSize)
+        {
+            var result = await GetJson(string.Format("{0}/users/{1}/repos?page={2}&per_page={3}", Host, Login, page,pageSize));
+            if (result.HaveError)
+            {
+                return null;
+            }
+            else
+            {
+                return JsonConvert.DeserializeObject<List<RepositoryModel>>(result.Data);
             }
         }
         #endregion

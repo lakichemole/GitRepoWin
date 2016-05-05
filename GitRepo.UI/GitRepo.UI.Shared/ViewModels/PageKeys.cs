@@ -9,7 +9,8 @@ namespace GitRepo.UI.ViewModels
         public enum Views
         {
             Main = 0,
-            AddUser = 1
+            AddUser = 1,
+            Repository = 2
         }
     }
 }

@@ -6,6 +6,6 @@ namespace GitRepo.UI.Common
 {
     public interface IViewLocator
     {
-        Type GetViewFromViewKey(int viewKey)
+        Type GetViewFromViewKey(int viewKey);
     }
 }

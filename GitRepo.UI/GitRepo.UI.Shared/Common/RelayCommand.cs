@@ -17,6 +17,7 @@ namespace GitRepo.UI.Common
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
+        private readonly Action<object> _executeParam;
         private readonly Func<bool> _canExecute;
 
         /// <summary>
@@ -33,6 +34,16 @@ namespace GitRepo.UI.Common
         {
         }
 
+
+        /// <summary>
+        /// Creates a new command that can always execute.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        public RelayCommand(Action<object> execute)
+            : this(execute, null)
+        {
+        }
+
         /// <summary>
         /// Creates a new command.
         /// </summary>
@@ -43,6 +54,19 @@ namespace GitRepo.UI.Common
             if (execute == null)
                 throw new ArgumentNullException("execute");
             _execute = execute;
+            _canExecute = canExecute;
+        }
+
+        /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        /// <param name="execute">The execution logic.</param>
+        /// <param name="canExecute">The execution status logic.</param>
+        public RelayCommand(Action<object> execute, Func<bool> canExecute)
+        {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
+            _executeParam = execute;
             _canExecute = canExecute;
         }
 
@@ -66,7 +90,14 @@ namespace GitRepo.UI.Common
         /// </param>
         public void Execute(object parameter)
         {
-            _execute();
+            if (parameter == null)
+            {
+                _execute();
+            }
+            else
+            {
+                _executeParam(parameter);
+            }
         }
 
         /// <summary>

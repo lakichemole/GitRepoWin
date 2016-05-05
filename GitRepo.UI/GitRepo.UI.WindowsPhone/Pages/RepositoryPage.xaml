@@ -1,0 +1,61 @@
+﻿<local:PageBase
+    x:Class="GitRepo.UI.Pages.RepositoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GitRepo.UI.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="using:GitRepo.UI.Common.Extensions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"    
+    mc:Ignorable="d">
+    <local:PageBase.Resources>
+        <ResourceDictionary>
+
+            <!-- Grid-appropriate item template as seen in section 2 -->
+            <DataTemplate x:Key="RepositoryItemTemplate">
+
+                <StackPanel HorizontalAlignment="Stretch" Margin="0,0,0,10" >
+                    <Border Padding="4" HorizontalAlignment="Stretch" Background="{StaticResource MainColorBrush}">
+                        <TextBlock HorizontalAlignment="Left" FontSize="20" Foreground="{StaticResource ContrastedColorBrush}" FontWeight="Bold" Text="{Binding name}" Style="{StaticResource LblStandard}"  />
+                    </Border>
+                    <TextBlock TextWrapping="WrapWholeWords" Text="{Binding description}" Style="{StaticResource LblStandard}"  FontSize="12"     />
+                    <TextBlock Margin="0" Padding="0" FontSize="12" FontWeight="Bold" Text="{Binding html_url}" Style="{StaticResource LblStandard}"   />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
+    </local:PageBase.Resources>
+    <Grid x:Name="LayoutRoot" Background="{StaticResource BackgroundColorBrush}">
+
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <EntranceThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title Panel -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,0" Background="{StaticResource MainColorBrush}" Orientation="Horizontal">
+            <Image Source="/Assets/SmallLogo.png" Height="53" HorizontalAlignment="Left" Margin="16,8,16,16" ></Image>
+            <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Style="{ThemeResource HeaderStyle}" />
+        </StackPanel>
+        <!--TODO: Content should be placed within the following grid-->
+        <Grid Grid.Row="1" x:Name="ContentRoot" Margin="19,9.5,19,0">
+            <ListView x:Name="repoListView" ItemsSource="{Binding RepoList}" 
+                      SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        ItemTemplate="{StaticResource RepositoryItemTemplate}"
+                      ext:ItemCommand.Command="{Binding ItemCommand}"  >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>               
+            </ListView>
+            <ProgressRing IsActive="{Binding IsLoading}"></ProgressRing>
+
+        </Grid>
+    </Grid>
+</local:PageBase>

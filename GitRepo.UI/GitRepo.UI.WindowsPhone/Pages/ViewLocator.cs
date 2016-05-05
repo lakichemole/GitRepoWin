@@ -46,6 +46,8 @@ namespace GitRepo.UI.Pages
             {
                 case (int)Views.AddUser:
                     return typeof(AddUserPage);
+                case (int)Views.Repository:
+                    return typeof(RepositoryPage);
                 case (int)Views.Main:
                 default:
                     return typeof(MainPage);

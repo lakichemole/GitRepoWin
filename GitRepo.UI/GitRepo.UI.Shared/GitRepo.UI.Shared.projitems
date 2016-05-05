@@ -15,10 +15,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BooleanToInvertConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Extensions\ListviewExt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\IViewLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\PageBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\StorageManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Service\Dataservice.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AddUserViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RepositoryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PageKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
@@ -31,5 +38,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Style\MainStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

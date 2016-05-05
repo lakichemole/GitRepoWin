@@ -8,6 +8,8 @@ namespace Asto.GitApi.DataModel
 {
     public partial class UserModel
     {
+        public const string UserFilename = "users.json";
+
         private string _ImageUrl;
 
         public string ImageUrl

@@ -124,6 +124,15 @@
     <value>m800: GitRepo</value>
   </data>
   <data name="MainPageTitle.Text" xml:space="preserve">
-    <value>Home : Followed users</value>
+    <value>Home</value>
+  </data>
+  <data name="RepositoryTitle" xml:space="preserve">
+    <value>Repositories of {0}</value>
+  </data>
+  <data name="SearchUserButton.Content" xml:space="preserve">
+    <value>Search User</value>
+  </data>
+  <data name="UserNotFound.Text" xml:space="preserve">
+    <value>No user with this login was found</value>
   </data>
 </root>

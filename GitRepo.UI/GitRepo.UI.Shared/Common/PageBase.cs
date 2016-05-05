@@ -16,22 +16,27 @@ namespace GitRepo.UI.Pages
     {
         private readonly IViewLocator viewLocator;
         private readonly NavigationHelper navigationHelper;
-        private readonly ViewModelBase defaultViewModel = null;
+        private ViewModelBase defaultViewModel = null;
         private readonly ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView("Resources");
 
-        public PageBase(ViewModelBase defaultViewModel)
+        public PageBase()
         {
-            defaultViewModel = defaultViewModel;
-            defaultViewModel.NavigationService = this;
-            DisplayInformation.AutoRotationPreferences = DisplayInformation.GetForCurrentView().NativeOrientation;
-            viewLocator = ViewLocator.Instance;
-            this.NavigationCacheMode = NavigationCacheMode.Required;
 
+            viewLocator = ViewLocator.Instance;
             this.navigationHelper = new NavigationHelper(this);
+            this.NavigationCacheMode = NavigationCacheMode.Required;
             this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
             this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
-        propfull
+
+        public void Init(ViewModelBase defaultViewModel)
+        {
+            this.defaultViewModel = defaultViewModel;
+            defaultViewModel.NavigationService = this;
+            defaultViewModel.ResourceLoader = resourceLoader;
+            DisplayInformation.AutoRotationPreferences = DisplayInformation.GetForCurrentView().NativeOrientation;
+        }
+
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -47,7 +52,7 @@ namespace GitRepo.UI.Pages
         public ViewModelBase CurrentViewModel
         {
             get { return this.defaultViewModel; }
-            
+
         }
 
         /// <summary>
@@ -64,7 +69,7 @@ namespace GitRepo.UI.Pages
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             await this.defaultViewModel.LoadDataAsync(e.NavigationParameter);
-    }
+        }
 
         /// <summary>
         /// Preserves state associated with this page in case the application is suspended or the
@@ -101,6 +106,10 @@ namespace GitRepo.UI.Pages
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             this.navigationHelper.OnNavigatedFrom(e);
+            if (e.NavigationMode == NavigationMode.Back)
+            {
+                this.CurrentViewModel.Unload();
+            }
         }
 
         public void Navigate(int pageId, object parameter = null)
